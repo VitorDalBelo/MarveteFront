@@ -20,7 +20,7 @@ const MarvelBtn = styled(MarvelLogo)(({theme}:Props)=>({
     borderRadius:15,
     padding:"5px 20px",
     cursor:"pointer",
-    border:"0.5px solid",
+    border:`0.5px solid ${theme?.palette.primary.main}`,
     width:"fit-content",
     transition:"0.5s filter",
     "&:hover":{

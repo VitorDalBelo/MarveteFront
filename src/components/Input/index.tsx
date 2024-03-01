@@ -7,7 +7,7 @@ const InputBox = styled("input")(({theme}:ThemeProps.default)=>({
     boxSizing:"border-box",
     fontSize: ".875rem",
     lineHeight: "1.5rem",
-    backgroundColor:"#e9ebf0 !important",
+    backgroundColor:theme?.palette.primary.dark,
     display:"block",
     border:0,
     outline:0,
@@ -16,7 +16,7 @@ const InputBox = styled("input")(({theme}:ThemeProps.default)=>({
     borderRadius:".375rem",
     padding:"1rem",
     backgroundPosition:"94.3% 50%",
-    color:"#252526 !important",
+    color:theme?.palette.text.primary,
     appearance:"none",
     "&:hover":{
       // backgroundImage:"linear-gradient(to bottom,transparent,transparent 58px,#aeb0b5 58px,#aeb0b5);",
@@ -31,7 +31,6 @@ const InputBox = styled("input")(({theme}:ThemeProps.default)=>({
     "&:focus , &:not(:placeholder-shown)":{
       paddingTop: "22px",
       paddingBottom: "10px",
-      color:"#252526",
     },
 
     "&:focus + label":{

@@ -43,7 +43,7 @@ export default function useAuth() : AuthInfo{
         .then(resp=>{
           localStorage.setItem("access_token",resp.data.access_token);
           setUser(resp.data.user);
-          setIsAuth(true)
+          setIsAuth(true);
           setLoading(false);
           console.log("autenticado")
         })

@@ -27,7 +27,7 @@ export default function Login() {
 
   }))
   const Card = styled("div")(({theme}:Props)=>({
-    backgroundColor:theme?.palette.background.default,
+    backgroundColor:theme?.palette.primary.main,
     borderRadius:"25px",
     overflow:"hidden",
     display:"flex",
