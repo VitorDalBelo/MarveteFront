@@ -7,7 +7,7 @@ const MarvelLogo = styled("div")(({theme}:Props)=>({
     fontWeight: "700 !important",
     backgroundColor:theme?.palette.secondary.main,
     padding:"3px 7px",
-    color: "white",
+    color: theme?.palette.primary.main,
     letterSpacing:"-2px !important",
     margin:"0px ",
     userSelect: "none"
