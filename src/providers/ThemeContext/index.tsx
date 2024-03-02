@@ -76,7 +76,7 @@ export default function ThemeContext({children}:Props) {
               primary: "#FFFFFF",
             },
             background:{
-              default:"#333131",
+              default:"#2b2a2a",
               paper:"#131314"
             }
           }),

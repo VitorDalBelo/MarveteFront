@@ -31,9 +31,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-  React.useEffect(()=>console.log("user",user),[user])
   return (
-    <AppBar id='navbar' position="fixed" style={{ top: 0 , }}>
+    <AppBar id='navbar' position="sticky" style={{ top: 0 , }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters style={{justifyContent:"space-between"}}>
           <MarveteLogo style={{fontSize:25}}>MARVETE</MarveteLogo>          

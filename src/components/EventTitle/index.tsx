@@ -1,11 +1,12 @@
 import { styled } from '@mui/system';
+import Props from '../../intefaces/Props';
 
 
-const EventTitle = styled('div')(()=>{
+const EventTitle = styled('div')(({theme}:Props)=>{
    
     return ({
-        color: "white",
-        backgroundColor: "rgba(34,34,34,0.9)",
+        color: theme?.palette.text.primary,
+        backgroundColor: theme?.palette.mode === 'dark' ? "rgba(34,34,34,0.9)": "rgba(255,255,255,0.9)",
         width: "100%",
         position: "absolute",
         bottom: 0,

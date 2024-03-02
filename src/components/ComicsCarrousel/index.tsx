@@ -64,7 +64,6 @@ const functionAutoPass =     (slider : any) => {
 }
 
 
-
 export default function ComicsCarrousel(props : propsCarousel) {
   const [currentSlide, setCurrentSlide] = React.useState(0)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -124,7 +123,7 @@ export default function ComicsCarrousel(props : propsCarousel) {
       { props.dots  && (
           <Dots>
             {[
-              ...Array(instanceRef.current?.track.details.slides.length).keys(),
+              ...Array(React.Children.count(props.children)).keys(),
             ].map((idx) => {
               return (
                 <Dot

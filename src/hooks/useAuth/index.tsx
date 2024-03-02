@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Buffer } from 'buffer';
 import { RoutesPath } from "../../routes/useRoutes";
+import { notifyError } from "../../notify";
 
 export interface User{
     user_id: number,
@@ -45,11 +45,10 @@ export default function useAuth() : AuthInfo{
           setUser(resp.data.user);
           setIsAuth(true);
           setLoading(false);
-          console.log("autenticado")
         })
         .catch(e=>{
           console.log(e);
-          toast.error("Não foi possível autenticar seu usuário");
+          notifyError("Unable to authenticate your user");
           setLoading(false);
         })
   }
@@ -117,8 +116,7 @@ export default function useAuth() : AuthInfo{
 
       return data.user
     } catch (err) {
-      console.log("error")
-      toast.error("Não foi possível autenticar seu usuário");
+      notifyError("Unable to authenticate your user");
       await handleLogout();
       return null
     }
@@ -136,9 +134,9 @@ export default function useAuth() : AuthInfo{
       history(RoutesPath.HOME)
 
       return data.user
-    } catch (err) {
-      console.log("error")
-      toast.error("Não foi possível autenticar seu usuário");
+    } catch (err : any) {
+      if(err.response && err.response.status == 404) notifyError("We have not registered this account, select the option to create an account");
+      else notifyError("Unable to authenticate your user");
       await handleLogout();
       return null
     }
