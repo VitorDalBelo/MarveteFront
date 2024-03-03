@@ -63,7 +63,7 @@ export default function Footer(){
         <PageFooter id="pageFooter">
             <div style={{textAlign:"center"}}>
             <MarveteLogo style={{fontSize:70}}>MARVETE</MarveteLogo>
-            <h2>CONTACT ME !</h2>
+            <h2 style={{userSelect: "none"}}>CONTACT ME !</h2>
             <div className="contacts">
                 <a target='_blank' href='https://api.whatsapp.com/send?phone=11971432754' className='contactInfo'>
                     <WhatsAppIcon style={{fontSize:'2rem'}}/>
@@ -84,8 +84,8 @@ export default function Footer(){
                     {/* <span>{'linkedin.com/in/vitor-almeida-dal-belo/'}</span>    */}
                 </a>
             </div>
-            <p>
-                This site is a portfolio project by Vitor De Almeida Dal Belo and has no commercial purposes.The data presented comes from a  <a href='https://developer.marvel.com/'>Marvel API</a>
+            <p style={{userSelect: "none"}}>
+                This site is a portfolio project by Vitor De Almeida Dal Belo and has no commercial purposes.The data presented comes from a  <a target='_blank' href='https://developer.marvel.com/'>Marvel API</a>
             </p>  
             </div>
         </PageFooter>

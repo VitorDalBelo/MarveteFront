@@ -133,6 +133,12 @@ export const charactersCarouselEndpoitsConfig : breakpoint = {
       spacing:6
     },
   },
+  '(max-width: 400px)': {
+    slides:{
+      perView:3,
+      spacing:6
+    },
+  },
 }
 
 export const rankingConfig : breakpoint = {

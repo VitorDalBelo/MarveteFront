@@ -14,7 +14,7 @@ import { AuthContext } from '../../providers/Auth/AuthContext';
 import { AuthInfo } from '../../hooks/useAuth';
 import ThemeBtn from '../ThemeBtn';
 // const pages = ['Characters', 'Comics', 'Creators','Events','Series','Stories'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 function ResponsiveAppBar() {
   
