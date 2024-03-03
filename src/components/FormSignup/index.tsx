@@ -69,19 +69,6 @@ export default function FormSignup(){
         >
           Password Confirm
         </Input>
-        {/* <Input
-
-          inputProps={{
-            id:"passwordConfirm",
-            placeholder:"passwordConfirm",
-            autoCorrect:'off',
-            type:"password",
-            onChange:(event)=>{userInfo.current.passwordConfirm = event.target.value}
-          }}
-          labelProps={{htmlFor:"passwordConfirm"}}
-        >
-          Password Confirm
-        </Input> */}
         <MarvelBtn onClick={()=>handleBasicLogin(userInfo.current.email,userInfo.current.password)}>
           Sign up
         </MarvelBtn>
