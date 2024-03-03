@@ -8,10 +8,12 @@ import api from "../services/api";
 import LoggedRoutes from "./PrivateRoutesGroups/LoggedRoutes";
 import NotLoggedRoutes from "./PublicRoutesGroups/NotLoggedRoutes";
 import LoadingFullScreen from "../components/LoadingFullScreen";
+import Signup from "../pages/Signup";
 
 export enum RoutesPath {
     LOGIN = "/login",
-    HOME  = "/"
+    HOME  = "/",
+    SIGNUP = "/signup"
   }
 
 export default function ProviderRoutes() {
@@ -36,6 +38,7 @@ export default function ProviderRoutes() {
                 <Route path={RoutesPath.HOME} element={<Home/>}/>
             </Route>
             <Route   element={<NotLoggedRoutes />}>
+                <Route path={RoutesPath.SIGNUP} element={<Signup/>}/>
                 <Route path={RoutesPath.LOGIN} element={<Login/>}/>
             </Route>
         </Routes>

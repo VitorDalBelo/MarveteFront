@@ -25,7 +25,7 @@ export interface AuthInfo{
   setUser:React.Dispatch<React.SetStateAction<User|undefined>>,
   setLoading:React.Dispatch<React.SetStateAction<boolean>>,
   handleBasicLogin: (email:string,password:string) => Promise<User | null>,
-  handleGoogleLogin: (code:string) => Promise<User | null>,
+  handleGoogleLogin: (code:string,mode?:"login"|"signup") => Promise<User | null>,
   handleLogout: () => Promise<void> 
 }
 
@@ -48,6 +48,7 @@ export default function useAuth() : AuthInfo{
         })
         .catch(e=>{
           console.log(e);
+          handleLogout()
           notifyError("Unable to authenticate your user");
           setLoading(false);
         })
@@ -103,6 +104,7 @@ export default function useAuth() : AuthInfo{
   };
 
   const handleBasicLogin = async (email:string,password:string) : Promise<User | null> => {
+    setLoading(true);
     try {
       const base64Credentials = Buffer.from(`${email}:${password}`).toString('base64');
       api.defaults.headers.Authorization = `Basic ${base64Credentials}`;
@@ -110,31 +112,35 @@ export default function useAuth() : AuthInfo{
       api.defaults.headers.Authorization = `Bearer ${data.access_token}`;
       localStorage.setItem("access_token",data.access_token)
       setUser(data.user as User);
-
       setIsAuth(true);
+      setLoading(false);
       history(RoutesPath.HOME)
 
       return data.user
     } catch (err) {
+      setLoading(false);
       notifyError("Unable to authenticate your user");
       await handleLogout();
       return null
     }
   };
 
-  const handleGoogleLogin = async (code:string) : Promise<User | null> => {
+  const handleGoogleLogin = async (code:string,mode?:"login"|"signup") : Promise<User | null> => {
+    setLoading(true);
     try {
       api.defaults.headers.code = code;
-      const { data } = await api.post("/auth/login/oauth");
+      const endpoint = mode ===  'signup' ? "/auth/signup/oauth" : "/auth/login/oauth"
+      const { data } = await api.post(endpoint);
       api.defaults.headers.Authorization = `Bearer ${data.access_token}`;
       localStorage.setItem("access_token",data.access_token)
       setUser(data.user as User);
-
+      
       setIsAuth(true);
+      setLoading(false);
       history(RoutesPath.HOME)
-
       return data.user
     } catch (err : any) {
+      setLoading(false);
       if(err.response && err.response.status == 404) notifyError("We have not registered this account, select the option to create an account");
       else notifyError("Unable to authenticate your user");
       await handleLogout();

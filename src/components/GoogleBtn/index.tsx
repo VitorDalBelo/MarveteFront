@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { ReactNode, useContext, useEffect } from 'react';
 import googleLogo from '../../assets/Google.svg'
 import { AuthContext } from '../../providers/Auth/AuthContext';
 import { AuthInfo } from '../../hooks/useAuth';
@@ -24,18 +24,24 @@ const popupCenter = ({url, title, w, h}: any) : Window => {
     )
     return newWindow as Window
   }
-  const handleClickAbrirNovaJanela = () => {
+const handleClickAbrirNovaJanela = () => {
     const url = "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A//localhost:5173/src/assets/oauthPage.html&client_id=295328282044-830m6t8dee0oh8e0hpev0p47hk0rvsu1.apps.googleusercontent.com&prompt=select_account"
     var width = 500;
     var height = 500;
     popupCenter({url,title:"googleScreen", w:width,h:height})
   };
-export default function GoogleBtn(){
+
+interface GoogleProps{
+  mode?:"login"|"signup"
+  children:ReactNode
+}
+ 
+export default function GoogleBtn({mode,children}:GoogleProps){
   const {handleGoogleLogin} = useContext(AuthContext) as AuthInfo;
   useEffect(()=>{
     const getOauthToken = (event: MessageEvent<any>) => {
         if(event.data && event.data.source == "oauth-window" && event.data.code) {
-          handleGoogleLogin(event.data.code);
+          handleGoogleLogin(event.data.code,mode);
         }
     }
     window.addEventListener('message',getOauthToken);
@@ -61,7 +67,7 @@ export default function GoogleBtn(){
             }}
             onClick={() => handleClickAbrirNovaJanela()}>
             <img src={googleLogo} style={{width:25}} alt="logo google" />
-            Log in with Google
+            {children}
         </button>
     )
 }

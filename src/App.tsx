@@ -4,13 +4,6 @@ import { AuthProvider } from './providers/Auth/AuthContext'
 import ProviderRoutes from './routes/useRoutes'
 import { NotifyContainer } from './notify'
 
-export enum RoutesPath {
-  LOGIN = "/login",
-  OAUTH = "/login/oauth",
-  HOME  = "/"
-}
-
-
 function App() {
   
   return (
