@@ -7,11 +7,26 @@ import { RoutesPath } from "../../routes/useRoutes";
 import FormConatainer from "../FormConatainer";
 import MarvelBtn from "../MarvelBtn";
 import ChangeForm from "../ChangeForm";
+import * as Yup from "yup";
+import { notifyError } from "../../notify";
+
+const schema = Yup.object().shape({
+  email: Yup.string().email('Type a valid email address').required('The email field cannot be empty'),
+  password: Yup.string().required('The password field cannot be empty'),
+}).strict();
 
 
 
 export default function FormLogin(){
     const {handleBasicLogin} = useContext(AuthContext) as AuthInfo;
+
+    const handleSubmit = () => {
+      schema.validate(userInfo.current)
+      .then(()=>handleBasicLogin(userInfo.current.email,userInfo.current.password))
+      .catch(e=>{
+        notifyError(e.message)
+      })
+    }
 
     const userInfo = useRef<{email:string,password:string}>({email:'',password:''});
     return(
@@ -45,7 +60,7 @@ export default function FormLogin(){
           Password
         </Input>
 
-        <MarvelBtn onClick={()=>handleBasicLogin(userInfo.current.email,userInfo.current.password)}>LOG IN</MarvelBtn>
+        <MarvelBtn onClick={()=>handleSubmit()}>LOG IN</MarvelBtn>
         <ChangeForm href={RoutesPath.SIGNUP}>
           Don't have an account yet? So sign up
         </ChangeForm>

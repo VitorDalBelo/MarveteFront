@@ -7,12 +7,33 @@ import { RoutesPath } from "../../routes/useRoutes";
 import FormConatainer from "../FormConatainer";
 import MarvelBtn from "../MarvelBtn";
 import ChangeForm from "../ChangeForm";
+import * as Yup from "yup";
+import { notifyError } from "../../notify";
 
+const schema = Yup.object().shape({
+  name: Yup.string().required('The name field cannot be empty'),
+  email: Yup.string().email('Type a valid email address').required('The email field cannot be empty'),
+  password: Yup.string().required('The password field cannot be empty'),
+  passwordConfirm: Yup.string()
+    .test('passwords-match', 'Passwords do not match', function (value) {
+      return this.parent.password === value;
+    })
+    .required('The password confirm field cannot be empty'),
+}).strict();
 
 export default function FormSignup(){
-    const {handleBasicLogin} = useContext(AuthContext) as AuthInfo;
+    const {handleBasicSignup} = useContext(AuthContext) as AuthInfo;
 
-    const userInfo = useRef<{email:string,password:string,passwordConfirm:string}>({email:'',password:'',passwordConfirm:''});
+    const userInfo = useRef<{name:string,email:string,password:string,passwordConfirm:string}>({name:'',email:'',password:'',passwordConfirm:''});
+    
+    const handleSubmit = () => {
+      schema.validate(userInfo.current)
+      .then(()=>handleBasicSignup(userInfo.current) )
+      .catch(e=>{
+        notifyError(e.message)
+      })
+    }
+    
     return(
         <FormConatainer style={{gap:25}}>
         <MarvelLogo style={{fontSize:40,marginBottom:10}}>MARVETE</MarvelLogo>
@@ -22,7 +43,7 @@ export default function FormSignup(){
             placeholder:"Name",
             autoCorrect:'off',
             type:"text",
-            onChange:(event)=>{userInfo.current.email = event.target.value}
+            onChange:(event)=>{userInfo.current.name = event.target.value}
           }}
           labelProps={{htmlFor:"name"}}
         >
@@ -69,7 +90,7 @@ export default function FormSignup(){
         >
           Password Confirm
         </Input>
-        <MarvelBtn onClick={()=>handleBasicLogin(userInfo.current.email,userInfo.current.password)}>
+        <MarvelBtn onClick={()=>handleSubmit()}>
           Sign up
         </MarvelBtn>
         <ChangeForm href={RoutesPath.LOGIN}>
