@@ -6,7 +6,8 @@ const ChangeForm = styled("a")(({theme}:Props)=>({
     textDecoration:"none",
     "&:hover":{
       textDecoration:"underline", 
-    }
+    },
+    textAlign:"center"
 }))
 
 export default ChangeForm

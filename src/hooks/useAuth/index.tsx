@@ -26,7 +26,8 @@ export interface AuthInfo{
   setLoading:React.Dispatch<React.SetStateAction<boolean>>,
   handleBasicLogin: (email:string,password:string) => Promise<User | null>,
   handleGoogleLogin: (code:string,mode?:"login"|"signup") => Promise<User | null>,
-  handleLogout: () => Promise<void> 
+  handleLogout: (noredirect?:boolean) => Promise<void> ,
+  handleBasicSignup: (newUser:{name: string,email: string,password: string}) => Promise<User | null>
 }
 
 export default function useAuth() : AuthInfo{
@@ -36,7 +37,9 @@ export default function useAuth() : AuthInfo{
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [user, setUser] = useState<User|undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
-  
+
+  React.useEffect(()=>setIsAuth(!!user),[user])
+
   const refresh = async ()=>{
         setLoading(true);
          await api.post("/auth/refresh")
@@ -91,7 +94,7 @@ export default function useAuth() : AuthInfo{
     );
 
 
-  const handleLogout = async () : Promise<void> => {
+  const handleLogout = async (noredirect?:boolean) : Promise<void> => {
       setIsAuth(false);
       setUser(undefined);
 
@@ -99,7 +102,7 @@ export default function useAuth() : AuthInfo{
       // @ts-ignore
       api.defaults.headers.Authorization = undefined;
 
-      history(RoutesPath.LOGIN);
+      if(!noredirect)history(RoutesPath.LOGIN);
 
   };
 
@@ -124,6 +127,27 @@ export default function useAuth() : AuthInfo{
       return null
     }
   };
+
+  const handleBasicSignup =async (newUser:{name: string,email: string,password: string}) : Promise<User | null> => {
+    setLoading(true);
+    try {
+      const { data } = await api.post("/auth/signup",newUser);
+      api.defaults.headers.Authorization = `Bearer ${data.access_token}`;
+      localStorage.setItem("access_token",data.access_token)
+      setUser(data.user as User);
+      setIsAuth(true);
+      setLoading(false);
+      history(RoutesPath.HOME)
+
+      return data.user
+    } catch (err: any) {
+      setLoading(false);
+      if(err.response && err.response.status === 409) notifyError("This email is already in use");
+      else notifyError("Unable to authenticate your user");
+      await handleLogout(true);
+      return null
+    }
+  }
 
   const handleGoogleLogin = async (code:string,mode?:"login"|"signup") : Promise<User | null> => {
     setLoading(true);
@@ -157,6 +181,7 @@ export default function useAuth() : AuthInfo{
       setLoading,
       handleBasicLogin,
       handleGoogleLogin,
-      handleLogout
+      handleLogout,
+      handleBasicSignup
     }
 }
