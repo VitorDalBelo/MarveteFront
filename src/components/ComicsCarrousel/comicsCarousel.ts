@@ -91,51 +91,51 @@ export const comicsCarouselEndpoitsConfig : breakpoint  = {
   }
 
 export const charactersCarouselEndpoitsConfig : breakpoint = {
-  '(max-width: 1120px)': {
-    slides:{
-      perView:10,
-      spacing:10
-    },
-  },
-  '(max-width: 1054px)': {
+  '(max-width: 1658px)': {
     slides:{
       perView:9,
       spacing:10
     },
   },
-  '(max-width: 950px)': {
+  '(max-width: 1490px)': {
     slides:{
       perView:8,
       spacing:10
     },
   },
-  '(max-width: 780px)': {
+  '(max-width: 1328)': {
     slides:{
       perView:7,
       spacing:10
     },
   },
-  '(max-width: 705px)': {
+  '(max-width: 1296px)': {
     slides:{
       perView:6,
-      spacing:8
+      spacing:10
     },
   },
-  '(max-width: 650px)': {
+  '(max-width: 1000px)': {
     slides:{
       perView:5,
       spacing:8
     },
   },
-  '(max-width: 500px)': {
+  '(max-width: 816px)': {
     slides:{
       perView:4,
+      spacing:8
+    },
+  },
+  '(max-width: 652px)': {
+    slides:{
+      perView:3,
       spacing:6
     },
   },
-  '(max-width: 400px)': {
+  '(max-width: 484px)': {
     slides:{
-      perView:3,
+      perView:2,
       spacing:6
     },
   },

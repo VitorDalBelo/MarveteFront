@@ -59,7 +59,7 @@ const Comic = styled("div")(()=>({
 }))
 
 const MarvelImg = styled("img")(({theme}:Props)=>({
-    width:'100%',
+    width:'146px',
     borderRadius:"100%",
     border:`3px solid ${theme?.palette.secondary.main}`
 }))
@@ -109,15 +109,28 @@ export default function Home(){
                 <SectionTitle>EXPLORE BY CHARACTER</SectionTitle>
                 <ComicsCarrousel 
                 breakpoints={charactersCarouselEndpoitsConfig} 
-                slides={{perView:11,spacing:10, origin:'center'}}
+                slides={{perView:10,spacing:10, origin:'center'}}
                 arrows={true}
                 drag={true}>
                     {characters.length>0?
                         characters.map(character=>(
                             character.thumbnail?.path=="http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"?'':
                             <div  className="keen-slider__slide " key={String(character.id)} style={{display:"flex",justifyContent:"center"}}>
-                            <div className='character' title={character.name} >
-                                <MarvelImg src={`${character.thumbnail?.path}/standard_medium.${character.thumbnail?.extension}`} alt="" />
+                            <div 
+                            // style={{
+                            //     width:'90%',
+                            //     height:"90%",
+                            //     borderRadius:"100%",
+                            //     border:`3px solid white`
+                            // }}
+                            className='character' title={character.name} >
+                                <MarvelImg src={`${character.thumbnail?.path}/standard_fantastic.${character.thumbnail?.extension}`} alt="" />
+                                {/* <div style={{
+                                    width:'90%',
+                                    height:"90%",
+                                    borderRadius:"100%",
+                                    border:`3px solid white`
+                                }}></div> */}
                             </div>
                             </div>
                         )):""
