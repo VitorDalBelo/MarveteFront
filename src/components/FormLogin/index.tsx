@@ -31,7 +31,7 @@ export default function FormLogin(){
     const userInfo = useRef<{email:string,password:string}>({email:'',password:''});
     return(
         <FormConatainer>
-        <MarvelLogo style={{fontSize:40,marginBottom:35}}>MARVETE</MarvelLogo>
+        <MarvelLogo style={{fontSize:40}}>MARVETE</MarvelLogo>
         <Input
           inputProps={{
             id:"email",

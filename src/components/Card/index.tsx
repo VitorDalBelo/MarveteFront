@@ -11,7 +11,8 @@ const Card = styled("div")(({theme}:Props)=>({
     flexDirection:"column",
     padding:"2.5rem 3.2rem",
     position:"relative",
-    height:577,
+    height:"80vh",
+    maxHeight:577,
     color:theme?.palette.text.primary,
     "@media(min-width:440px)":{
       width:320,

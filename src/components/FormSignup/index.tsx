@@ -35,8 +35,8 @@ export default function FormSignup(){
     }
     
     return(
-        <FormConatainer style={{gap:25}}>
-        <MarvelLogo style={{fontSize:40,marginBottom:10}}>MARVETE</MarvelLogo>
+        <FormConatainer style={{gap:"1.2vh"}}>
+        <MarvelLogo style={{fontSize:40}}>MARVETE</MarvelLogo>
         <Input
           inputProps={{
             id:"name",
