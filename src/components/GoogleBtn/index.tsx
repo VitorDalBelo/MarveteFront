@@ -25,7 +25,9 @@ const popupCenter = ({url, title, w, h}: any) : Window => {
     return newWindow as Window
   }
 const handleClickAbrirNovaJanela = () => {
-    const url = "https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=http%3A//localhost:5173/src/assets/oauthPage.html&client_id=295328282044-830m6t8dee0oh8e0hpev0p47hk0rvsu1.apps.googleusercontent.com&prompt=select_account"
+    const protocol = encodeURIComponent(window.location.protocol);
+    const socket = window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&state=state_parameter_passthrough_value&redirect_uri=${protocol}//${socket}/src/assets/oauthPage.html&client_id=295328282044-830m6t8dee0oh8e0hpev0p47hk0rvsu1.apps.googleusercontent.com&prompt=select_account`
     var width = 500;
     var height = 500;
     popupCenter({url,title:"googleScreen", w:width,h:height})
