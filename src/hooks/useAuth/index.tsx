@@ -165,9 +165,10 @@ export default function useAuth() : AuthInfo{
       return data.user
     } catch (err : any) {
       setLoading(false);
-      if(err.response && err.response.status == 404) notifyError("We have not registered this account, select the option to create an account");
+      if(mode == "signup" && err.response && err.response.status == 409) notifyError("This account already exists, try logging in")
+      else if(err.response && err.response.status == 404) notifyError("We have not registered this account, select the option to create an account");
       else notifyError("Unable to authenticate your user");
-      await handleLogout();
+      await handleLogout(mode == 'signup');
       return null
     }
   };
